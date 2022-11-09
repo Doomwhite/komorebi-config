@@ -94,22 +94,18 @@ komorebic_start()
     Run, komorebic.exe complete-configuration, , Hide
 }
 
-yasb_start()
-{
-    Run, pythonw C:\Users\adinelson.bruhmuller.MOVTECH\.yasb\app\src\main.py, , Hide
-    Run, komorebic.exe work-area-offset 0 28 0 28, , Hide
-}
-
-
-; Quit komorebi & yasb when quitting autohotkey
-; OnExit("komorebic_stop")
-
 komorebic_stop()
 {
     Run, komorebic.exe stop, , Hide
     Run, taskkill.exe /f /im komorebic.exe, , Hide
     yasb_stop()
     return
+}
+
+yasb_start()
+{
+    Run, pythonw C:\Users\adinelson.bruhmuller.MOVTECH\.yasb\app\src\main.py, , Hide
+    Run, komorebic.exe work-area-offset 0 28 0 28, , Hide
 }
 
 yasb_stop()
