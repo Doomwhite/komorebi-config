@@ -1,5 +1,7 @@
 #SingleInstance Force
 
+
+; Some AHK keybindings
 ;#	Win (Windows logo key).
 ;!	Alt
 ;^	Ctrl
@@ -9,132 +11,10 @@
 ; You can generate a fresh version of this file with "komorebic ahk-library"
 #Include %A_ScriptDir%\komorebic.lib.ahk
 
-komorebic_start()
-
-komorebic_start() 
-{
-    Run, komorebic.exe start --await-configuration, , Hide
-    yasb_start()
-
-    ; Includes the applications configurations
-    ; https://github.com/LGUG2Z/komorebi/#generating-common-application-specific-configurations
-    #Include %A_ScriptDir%\komorebi.generated.ahk
-
-    ; Removes the container paddings from monitor 0
-    Run, komorebic.exe container-padding 0 0 0, , Hide
-    Run, komorebic.exe container-padding 0 1 0, , Hide
-    Run, komorebic.exe container-padding 0 2 0, , Hide
-    Run, komorebic.exe container-padding 0 3 0, , Hide
-    Run, komorebic.exe container-padding 0 4 0, , Hide
-
-    ; Removes the container paddings from monitor 1
-    Run, komorebic.exe container-padding 1 0 0, , Hide
-    Run, komorebic.exe container-padding 1 1 0, , Hide
-    Run, komorebic.exe container-padding 1 2 0, , Hide
-    Run, komorebic.exe container-padding 1 3 0, , Hide
-    Run, komorebic.exe container-padding 1 4 0, , Hide
-
-    ; Removes the workspace paddings from monitor 1
-    Run, komorebic.exe workspace-padding 0 0 0, , Hide
-    Run, komorebic.exe workspace-padding 0 1 0, , Hide
-    Run, komorebic.exe workspace-padding 0 2 0, , Hide
-    Run, komorebic.exe workspace-padding 0 3 0, , Hide
-    Run, komorebic.exe workspace-padding 0 4 0, , Hide
-
-    ; Removes the workspace paddings from monitor 1
-    Run, komorebic.exe workspace-padding 1 0 0, , Hide
-    Run, komorebic.exe workspace-padding 1 1 0, , Hide
-    Run, komorebic.exe workspace-padding 1 2 0, , Hide
-    Run, komorebic.exe workspace-padding 1 3 0, , Hide
-    Run, komorebic.exe workspace-padding 1 4 0, , Hide
-
-    ; window hiding behavior
-    ;Run, komorebic.exe window-hiding-behaviour hide, , Hide
-
-    ; Enable hot reloading of changes to this file
-    Run, komorebic.exe watch-configuration enable, , Hide
-
-    ; Open Yasb
-    ; Run, python C:\Users\adinelson.bruhmuller.MOVTECH\.yasb\app\src\main.py, , Hide
-
-    ; Configure the invisible border dimensions
-    Run, komorebic.exe invisible-borders 0 0 0 0, , Hide
-    Run, komorebic.exe invisible-borders 1 0 0 0, , Hide
-
-    ; Visual border drawn around the focused window
-    Run, komorebic.exe active-window-border enable, , Hide
-    Run, komorebic.exe active-window-border-colour 66 165 245 single, , Hide
-
-    ; Enable focus follows mouse
-    Run, komorebic.exe focus-follows-mouse disable, , Hide
-    Run, komorebic.exe mouse-follows-focus enable, , Hide
-
-    ; Ensure there are workspaces created on the monitors
-    Run, komorebic.exe ensure-workspaces 0 5, , Hide
-    Run, komorebic.exe ensure-workspaces 1 5, , Hide
-
-    ; Give the workspaces some optional names
-    Run, komorebic.exe workspace-name 1 0 chrome, , Hide
-    Run, komorebic.exe workspace-name 1 1 app, , Hide
-    Run, komorebic.exe workspace-name 1 2 api, , Hide
-    ; Run, komorebic.exe workspace-name 1 3 matrix, , Hide
-    ; Run, komorebic.exe workspace-name 1 4 floaty, , Hide
-
-    ; Set the padding of the different workspaces
-    ; Run, komorebic.exe workspace-padding 0 1 30, , Hide
-    ; Run, komorebic.exe container-padding 0 1 30, , Hide
-    ; Run, komorebic.exe workspace-padding 0 2 30, , Hide
-    ; Run, komorebic.exe container-padding 0 2 30, , Hide
-    ; Run, komorebic.exe workspace-padding 0 3 30, , Hide
-    ; Run, komorebic.exe container-padding 0 3 30, , Hide
-
-    ; Set the layouts of different workspaces
-    ; Run, komorebic.exe workspace-layout 0 1 columns, , Hide
-
-    ; Set the floaty layout to not tile any windows
-    ; Run, komorebic.exe workspace-tiling 0 4 disable, , Hide
-
-    ; Organizes apps on the their workspace
-    Run, komorebic.exe workspace-rule exe "chrome.exe" 1 0, , Hide
-    Run, komorebic.exe workspace-rule exe Code.exe 1 1, , Hide
-    Run, komorebic.exe workspace-rule exe devenv.exe 1 2, , Hide
-    ; Run, komorebic.exe workspace-rule exe Discord.exe 1 2, , Hide
-    ; Run, komorebic.exe workspace-rule exe Spotify.exe 1 2, , Hide
-
-    ; Identify applications that have overflowing borders
-    Run, komorebic.exe identify-border-overflow exe Discord.exe, , Hide
-
-    Run, komorebic.exe complete-configuration, , Hide
-}
-
-yasb_start()
-{
-    Run, pythonw C:\Users\adinelson.bruhmuller.MOVTECH\.yasb\app\src\main.py, , Hide
-    Run, komorebic.exe work-area-offset 0 28 0 28, , Hide
-}
-
-
-; Quit komorebi & yasb when quitting autohotkey
-; OnExit("komorebic_stop")
-
-komorebic_stop()
-{
-    Run, komorebic.exe stop, , Hide
-    yasb_stop()
-    return
-}
-
-yasb_stop()
-{
-    Run, taskkill.exe /f /im pythonw.exe, , Hide
-    Run, komorebic.exe work-area-offset 0 0 0 0, , Hide
-}
-
-
+; The functions library
+#Include %A_ScriptDir%\komorebic-functions.lib.ahk
 
 ; KEYBINDINGS
-
-
 
 ; Start komorebi
 !^s::
@@ -161,7 +41,7 @@ return
 Run, komorebic.exe quick-load, , Hide
 return
 
-; Change the focused window, Win + Vim direction keys
+; Change the focused window
 
 !j::
 Run, komorebic.exe cycle-focus next, , Hide
@@ -171,7 +51,7 @@ return
 Run, komorebic.exe cycle-focus previous, , Hide
 return
 
-; Move the focused window in a given direction, Win + Shift + Vim direction keys
+; Move the focused window in a given direction
 
 !^j::
 Run, komorebic.exe cycle-move next, , Hide
@@ -191,7 +71,7 @@ return
 Run, komorebic.exe resize-axis horizontal decrease, , Hide
 return
 
-; Stack the focused window in a given direction, Win + Shift + direction keys
+; Stack the focused window in a given direction
 !^Left::
 Run, komorebic.exe stack left, , Hide
 return
@@ -216,62 +96,62 @@ return
 Run, komorebic.exe cycle-stack previous, , Hide
 return
 
-; Unstack the focused window, Win + Shift + D
+; Unstack the focused window
 !^d::
 Run, komorebic.exe unstack, , Hide
 return
 
-; Promote the focused window to the top of the tree, Win + Shift + Enter
+; Promote the focused window to the top of the tree
 !^Enter::
 Run, komorebic.exe promote, , Hide
 return
 
-; Switch to an equal-width, max-height column layout on the main workspace, Win + C
+; Switch to an equal-width, max-height column layout on the main workspace
 ;!c::
 ;Run, komorebic.exe workspace-layout 0 0 columns, , Hide
 ;return
 
-; Switch to the default bsp tiling layout on the main workspace, Win + Shift + T
+; Switch to the default bsp tiling layout on the main workspace
 ;!t::
 ;Run, komorebic.exe workspace-layout 0 0 bsp, , Hide
 ;return
 
-; Toggle the Monocle layout for the focused window, Win + Shift + F
+; Toggle the Monocle layout for the focused window
 !f::
 Run, komorebic.exe toggle-monocle, , Hide
 return
 
-; Toggle native maximize for the focused window, Win + Shift + =
+; Toggle native maximize for the focused window
 !m::
 Run, komorebic.exe toggle-maximize, , Hide
 return
 
-; Flip horizontally, Win + X
+; Flip horizontally
 !n::
 Run, komorebic.exe flip-layout horizontal, , Hide
 return
 
-; Flip vertically, Win + Y
+; Flip vertically
 !v::
 Run, komorebic.exe flip-layout vertical, , Hide
 return
 
-; Force a retile if things get janky, Win + R
+; Force a retile if things get janky
 ; !r::
 ; Run, komorebic.exe retile, , Hide
 ; return
 
-; Float the focused window, Win + F
+; Float the focused window
 !^f::
 Run, komorebic.exe toggle-float, , Hide
 return
 
-; Reload ~/komorebi.ahk, Win + O
+; Reload ~/komorebi.ahk
 !o::
 Run, komorebic.exe reload-configuration, , Hide
 return
 
-; Pause responding to any window events or komorebic commands, Win + P
+; Pause responding to any window events or komorebic commands
 !p::
 Run, komorebic.exe toggle-pause, , Hide
 return
@@ -286,7 +166,7 @@ return
 Run, komorebic.exe unmanage, , Hide
 return
 
-; Pause responding to any window events or komorebic commands, Win + P
+; Pause responding to any window events or komorebic commands
 !^p::
 Run, komorebic.exe toggle-tiling, , Hide
 return

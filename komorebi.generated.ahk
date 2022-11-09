@@ -332,7 +332,12 @@ Run, komorebic.exe identify-border-overflow-application exe "UnrealEditor.exe", 
 ; If you have disabled minimize/close to tray for this application, you can delete/comment out the next line
 Run, komorebic.exe identify-tray-application exe "UnrealEditor.exe", , Hide
 
+; Visual Studio
+Run, komorebic.exe manage-rule exe "devenv.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "devenv.exe", , Hide
+
 ; Visual Studio Code
+Run, komorebic.exe manage-rule exe "Code.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "Code.exe", , Hide
 
 ; WebTorrent Desktop
@@ -366,6 +371,14 @@ Run, komorebic.exe float-rule title "Hotkey sink", , Hide
 ; Zoom
 Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
 
+; iisexpress
+; If you have disabled minimize/close to tray for this application, you can delete/comment out the next line
+Run, komorebic.exe identify-tray-application exe "iisexpress.exe", , Hide
+
+; iisexpresstray
+; If you have disabled minimize/close to tray for this application, you can delete/comment out the next line
+Run, komorebic.exe identify-tray-application exe "iisexpresstray.exe", , Hide
+
 ; mpv
 ; If you have disabled minimize/close to tray for this application, you can delete/comment out the next line
 Run, komorebic.exe identify-tray-application class "mpv", , Hide
@@ -384,3 +397,6 @@ Run, komorebic.exe identify-tray-application exe "qbittorrent.exe", , Hide
 ; If you have disabled minimize/close to tray for this application, you can delete/comment out the next line
 Run, komorebic.exe identify-tray-application exe "ueli.exe", , Hide
 Run, komorebic.exe float-rule exe "ueli.exe", , Hide
+
+; wezterm
+Run, komorebic.exe manage-rule exe "wezterm-gui.exe", , Hide

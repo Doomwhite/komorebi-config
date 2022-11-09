@@ -568,6 +568,7 @@
     kind: exe
     id: Code.exe
   options:
+  - force
   - border_overflow
 - name: WebTorrent Desktop
   identifier:
@@ -672,3 +673,16 @@
   float_identifiers:
   - kind: exe
     id: ueli.exe
+- name: wezterm
+  identifier:
+    kind: exe
+    id: wezterm-gui.exe
+  options:
+  - force
+- name: Visual Studio
+  identifier:
+    kind: exe
+    id: devenv.exe
+  options:
+  - force
+  - border_overflow
