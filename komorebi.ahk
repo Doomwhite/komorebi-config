@@ -1,4 +1,7 @@
 #SingleInstance Force
+SetTitleMatchMode, 2
+SetKeyDelay, -1
+SetBatchLines, -1
 
 ; You can generate a fresh version of this file with "komorebic ahk-library"
 ; #Include %A_ScriptDir%\komorebic.lib.ahk
